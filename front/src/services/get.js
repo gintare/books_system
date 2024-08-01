@@ -34,3 +34,18 @@ export const getAllCategories = async () => {
     throw new Error(`Error fetching all data: ${error.message}`);
   }
 };
+
+export const getAllBooks = async () => {
+  try {
+    const userToken = getDefaultToken();
+    const resp = await axios.get(`${API_URL}/api/books`,
+    {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    });
+    return resp.data;
+  } catch (error) {
+    throw new Error(`Error fetching all data: ${error.message}`);
+  }
+};

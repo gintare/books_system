@@ -25,3 +25,18 @@ export const deleteCategory = async (id) => {
     throw new Error(`Error deleting data ${error.message}`);
   }
 };
+
+export const deleteBook = async (id) => {
+  try {
+    const userToken = getDefaultToken();
+    const resp = await axios.delete(`${API_URL}/api/books/${id}`,
+    {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    });
+    return resp.data;
+  } catch (error) {
+    throw new Error(`Error deleting data ${error.message}`);
+  }
+};
