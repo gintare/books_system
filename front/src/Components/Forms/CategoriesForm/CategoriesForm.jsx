@@ -47,12 +47,13 @@ function CategoriesForm() {
 
 
     return(<>
-    <h6>Create new category</h6>
+    
       <form
           className='needs-validation register-form mt-2 d-flex flex-column align-items-center'
           noValidate
           onSubmit={handleSubmit(formSubmitHandler)}
         >
+          <h6>Create new category</h6>
             <div className='mb-3'>
             <input
               placeholder='Category title'

@@ -17,7 +17,7 @@ function App() {
 
   return (
     <>
-      <ToastContainer autoClose={800} position='top-center' />
+      <ToastContainer autoClose={5000} position='top-center' />
       <Header />
       <CategoriesProvider>
       <UserContext.Provider value={{user, setUpdate}}>
@@ -28,6 +28,14 @@ function App() {
           {/* <Route path='/categories' element={<CategoriesPage/>} /> */}
           <Route
               path='/categories'
+              element={
+                <ProtectedRoute adminOnly={true}>
+                  <CategoriesPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path='/addbook'
               element={
                 <ProtectedRoute adminOnly={true}>
                   <CategoriesPage />

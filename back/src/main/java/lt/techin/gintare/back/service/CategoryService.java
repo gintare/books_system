@@ -55,4 +55,13 @@ public class CategoryService {
         categoryResponseDTO.setTitle(category.getTitle());
         return categoryResponseDTO;
     }
+
+    public CategoryResponseDTO deleteCategory(Long id) {
+        Category category = categoryRepository.findById(id).orElseThrow(() -> new CategoryNotFoundException("No category found with an id = "+id));
+        categoryRepository.delete(category);
+        CategoryResponseDTO categoryResponseDTO = new CategoryResponseDTO();
+        categoryResponseDTO.setId(category.getId());
+        categoryResponseDTO.setTitle(category.getTitle());
+        return categoryResponseDTO;
+    }
 }

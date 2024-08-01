@@ -25,7 +25,7 @@ function CategoriesPage () {
     <div className="col col-lg-5">
         <CategoriesForm />
     </div>
-    <div className="col-lg-5">
+    <div className="col-lg-2">
         {categories.map((categ, index) => {
             return <CategoryCard key={index} category={categ} setUpdate={setUpdate} />
         })}
