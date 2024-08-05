@@ -19,8 +19,8 @@ function BookDetalesPage() {
   const [comments, setComments] = useState([]);
 
   // console.log("userRole = "+userRole);
-  console.log("userId = "+userId);
-  console.log("Books details from context", contextContent);
+  // console.log("userId = "+userId);
+  // console.log("Books details from context", contextContent);
 
   const clickFavoriteHandler = () => {
     setFavorite((favorite) => !favorite);
@@ -93,7 +93,7 @@ function BookDetalesPage() {
           zvaigzdutes
         </div>
       </div>
-      <Comments />
+      <Comments book={book} />
     </>
   );
 }

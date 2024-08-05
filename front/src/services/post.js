@@ -73,3 +73,18 @@ export const favoritePost = async (userId, bookId) => {
     throw new Error(`Failed to save data ${error.message}`);
   }
 };
+
+export const commentPost = async (userId, bookId, data) => {
+  try {
+    const userToken = getDefaultToken();
+    const response = await axios.post(`${API_URL}/api/users/${userId}/books/${bookId}/comments`, data,
+    {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error(`Failed to save data ${error.message}`);
+  }
+};

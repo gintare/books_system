@@ -107,3 +107,18 @@ export const getFavoritesByUser = async (userId) => {
     throw new Error(`Error getIsFavorite : ${error.message}`);
   }
 };
+
+export const getCommentsByBook = async (bookId) => {
+  try {
+    console.log(bookId);
+    const userToken = getDefaultToken();
+    const resp = await axios.get(`${API_URL}/api/books/${bookId}/comments`, {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    });
+    return resp.data;
+  } catch (error) {
+    throw new Error(`Error getIsFavorite : ${error.message}`);
+  }
+};

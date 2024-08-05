@@ -39,6 +39,9 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     Set<Favorite> favorites = new LinkedHashSet<>();
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    Set<Comment> comments = new LinkedHashSet<>();
+
     public User(long id, String userName, String email, String password, String role) {
         this.id = id;
         this.userName = userName;
