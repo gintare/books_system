@@ -1,11 +1,11 @@
 .header {
-  background-color: var(--primary-blue);
+  /* background-color: var(--primary-blue);
   display: flex;
   align-items: center;
   align-content: center;
   justify-content: space-between;
   color: var(--white);
-  height: 5rem;
+  height: 5rem; */
 }
 
 .header-logo {

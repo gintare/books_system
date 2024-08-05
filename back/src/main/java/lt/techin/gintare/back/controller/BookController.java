@@ -37,4 +37,15 @@ public class BookController {
         return ResponseEntity.ok(bookService.updateBook(categoryId, id, bookRequestDTO));
 
     }
+
+    @GetMapping("/api/books/{id}")
+    public ResponseEntity<?> getOneBook(@PathVariable Long id){
+        return ResponseEntity.ok(bookService.getOneBook(id));
+    }
+
+    @GetMapping("/api/categories/{categoryId}/books")
+    public List<BookResponseDTO> getBooksByCategory(@PathVariable Long categoryId){
+        return bookService.getBooksByCategory(categoryId);
+    }
+
 }

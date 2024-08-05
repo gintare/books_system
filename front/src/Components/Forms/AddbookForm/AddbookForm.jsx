@@ -47,7 +47,7 @@ function AddbookForm({ book, setUpdate }) {
         if(!bo){
           throw new Error("Operation unsuccessiful");
         }
-        
+        reset();
         setUpdate((prev) => prev + 1);
     }catch(error){
        toast.error(error.message);

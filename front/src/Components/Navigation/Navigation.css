@@ -1,18 +1,38 @@
+.logo {
+  width: 3rem;
+  border-radius: 20%;
+  border: 1px solid var(--light-white);
+}
+
 .nav-link {
   color: var(--white);
+  display: grid;
+  align-items: center;
+}
+
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+}
+
+.navbar-toggler {
+  border-color: var(--white);
+}
+
+.navbar-toggler:focus {
+  box-shadow: 0 0 5px 2px var(--white);
 }
 
 nav {
-  display: flex;
-  align-items: center;
-  gap: 0.3rem;
-  margin-right: 0.5rem;
+  background-color: var(--primary-blue);
 }
 
-.active {
-  background-color: var(--dark-salmon);
-  padding: 0.2rem;
-  border-radius: 0.3rem;
+nav .nav-link {
+  padding: 0.2rem 0.3rem;
+}
+
+.active:not(.carousel-control-prev, .carousel-item, .carousel-indicators > button, .username) {
+  background-color: var(--dark-salmon) !important;
+  border-radius: 0.2rem;
 }
 
 .logout {
@@ -21,11 +41,21 @@ nav {
   color: var(--white);
   font-family: 'Open Sans', sans-serif;
   font-size: 1rem;
-  margin-left: -0.3rem;
+  text-align: right;
   cursor: pointer;
 }
 
 .username {
-  margin-right: 1rem;
   font-weight: 600;
+  color: var(--white);
+  border: 1px solid var(--light-white);
+  display: grid;
+  align-items: center;
+  padding: 0.2rem 0.3rem;
+  border-radius: 0.2rem;
+}
+
+.categories-select {
+  width: 100%;
+  margin: 1rem 0;
 }

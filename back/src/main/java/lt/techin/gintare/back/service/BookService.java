@@ -79,4 +79,19 @@ public class BookService {
         bookRepository.save(book);
         return getBookResponseDTO(book);
     }
+
+    public BookResponseDTO getOneBook(Long id) {
+        Book book = bookRepository.findById(id).orElseThrow(() -> new BookNotFoundException("No book found with an id = "+id));
+        return getBookResponseDTO(book);
+    }
+
+    public List<BookResponseDTO> getBooksByCategory(Long categoryId) {
+        Category category = categoryRepository.findById(categoryId).orElseThrow(() -> new CategoryNotFoundException("No category found with an ID = "+categoryId));
+        List<Book> books = bookRepository.findByCategory(category);
+        List<BookResponseDTO> bookResponseDTOS = new ArrayList<>();
+        for(Book book : books){
+            bookResponseDTOS.add(getBookResponseDTO(book));
+        }
+        return bookResponseDTOS;
+    }
 }

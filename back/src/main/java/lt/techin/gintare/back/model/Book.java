@@ -5,6 +5,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 @Entity
 @Table(name = "book")
 @Getter
@@ -19,6 +22,8 @@ public class Book {
 
     private String name;
 
+    //@Column(columnDefinition = "TEXT")
+    @Column(length = 10000)
     private String description;
 
     private String isbn;
@@ -31,5 +36,8 @@ public class Book {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Category category;
+
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
+    Set<Favorite> favorites = new LinkedHashSet<>();
 
 }

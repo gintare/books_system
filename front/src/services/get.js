@@ -49,3 +49,61 @@ export const getAllBooks = async () => {
     throw new Error(`Error fetching all data: ${error.message}`);
   }
 };
+
+export const getOneBook = async (id) => {
+  try {
+    const userToken = getDefaultToken();
+    const resp = await axios.get(`${API_URL}/api/books/${id}`,
+    {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    });
+    return resp.data;
+  } catch (error) {
+    throw new Error(`Error fetching all data: ${error.message}`);
+  }
+};
+
+export const getBooksByCategories = async (category_id) => {
+  try {
+    const userToken = getDefaultToken();
+    const resp = await axios.get(`${API_URL}/api/categories/${category_id}/books`,
+    {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    });
+    return resp.data;
+  } catch (error) {
+    throw new Error(`Error fetching all data: ${error.message}`);
+  }
+};
+
+export const getIsFavorite = async (userId, bookId) => {
+  try {
+    const userToken = getDefaultToken();
+    const resp = await axios.get(`${API_URL}/api/users/${userId}/books/${bookId}/favorites`, {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    });
+    return resp.data;
+  } catch (error) {
+    throw new Error(`Error getIsFavorite : ${error.message}`);
+  }
+};
+
+export const getFavoritesByUser = async (userId) => {
+  try {
+    const userToken = getDefaultToken();
+    const resp = await axios.get(`${API_URL}/api/users/${userId}/favorites`, {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    });
+    return resp.data;
+  } catch (error) {
+    throw new Error(`Error getIsFavorite : ${error.message}`);
+  }
+};
