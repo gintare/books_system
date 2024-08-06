@@ -2,6 +2,10 @@
     padding: 30px;
   }
 
+  .book-detales-page-img{
+    text-align: center;
+  }
+
   .book-detales-page-img img{
     width: 100%;
     max-width: 500px;

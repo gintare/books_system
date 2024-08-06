@@ -7,7 +7,11 @@ import "./Navigation.css";
 import { useContext, useEffect, useState } from "react";
 import BooksContext from "../../Context/BooksContext/BooksContext";
 import CategoriesContext from "../../Context/CategoriesContext/CategoriesContext";
-import { getAllBooks, getAllCategories, getBooksByCategories } from "../../services/get";
+import {
+  getAllBooks,
+  getAllCategories,
+  getBooksByCategories,
+} from "../../services/get";
 
 const Navigation = () => {
   const [searchText, setSearchText] = useState("");
@@ -33,25 +37,25 @@ const Navigation = () => {
     navigate("/login", { replace: true });
   };
 
-  const onCategorySelectChangeHandler = async(e) => {
+  const onCategorySelectChangeHandler = async (e) => {
     try {
       let bo = null;
-      if (e.target.value !== '0') {
+      if (e.target.value !== "0") {
         bo = await getBooksByCategories(e.target.value);
       } else {
         bo = await getAllBooks();
       }
-      if(!bo){
+      if (!bo) {
         throw new Error("Operation no success");
       }
 
       //setBooks(bo);
       setFilteredBooks(bo);
-    }catch(error){
+    } catch (error) {
       toast.error(error.message);
       console.error(error.message);
     }
-  }
+  };
 
   useEffect(() => {
     const filter = books.filter((book) => {
@@ -149,9 +153,17 @@ const Navigation = () => {
                 </option>
               ))}
             </select>
-            </div>
+          </div>
 
-          <div className='navbar-nav ms-auto text-end gap-2'>
+          <div className="navbar-nav ms-auto text-end gap-2">
+            <NavLink
+              className={({ isActive }) =>
+                isActive ? "nav-link active" : "nav-link"
+              }
+              to="/books"
+            >
+              Books
+            </NavLink>
             {!isLoggedIn && (
               <>
                 <NavLink
@@ -196,14 +208,6 @@ const Navigation = () => {
                     <span className="username">Account: {userName}</span>
                   </NavLink>
                 )}
-                <NavLink
-                  className={({ isActive }) =>
-                    isActive ? "nav-link active" : "nav-link"
-                  }
-                  to="/books"
-                >
-                  Books
-                </NavLink>
                 <button className="logout" onClick={logoutHandler}>
                   Logout
                 </button>

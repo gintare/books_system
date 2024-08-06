@@ -22,6 +22,13 @@ function AdminPage() {
             </button>
           </Link>
         </div>
+        <div>
+          <Link to="/profile">
+            <button type="button" className="btn btn-primary">
+              Profile
+            </button>
+          </Link>
+        </div>
       </div>
     </>
   );

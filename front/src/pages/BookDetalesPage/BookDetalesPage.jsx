@@ -8,11 +8,12 @@ import UserContext from "../../Context/UserContext/UserContext";
 import { favoritePost } from "../../services/post";
 import { deleteFavorite } from "../../services/delete";
 import Comments from "../../Components/Comments/Comments";
+import Stars from "../../Components/Stars/Stars";
 
 function BookDetalesPage() {
   const { id: bookId } = useParams();
   const contextContent = useContext(UserContext);
-  const {user, id : userId, token} = contextContent;
+  const {user, isLoggedIn, id : userId, token} = contextContent;
   const [book, setBook] = useState({});
   const [category, setCategory] = useState("");
   const [favorite, setFavorite] = useState(false);
@@ -39,7 +40,7 @@ function BookDetalesPage() {
           setBook(bo);
           setCategory(bo.category.title);
           
-          if(bookId) {
+          if(bookId && isLoggedIn) {
             const isFav = await getIsFavorite(userId, bookId);
             //console.log("isFav = "+isFav);
             setFavorite(isFav);
@@ -79,19 +80,19 @@ function BookDetalesPage() {
         </div>
       </div>
       <div className="row">
-        <div className="col col-sm-6 p-5">
+        { isLoggedIn && <div className="col col-sm-6 p-5">
              <span>My favorite</span>
               {favorite ? (
                 <><HeartFill color='red' size='36' onClick={clickFavoriteHandler} /> </>
               ) : (
                 <Heart color='red' size='36' onClick={clickFavoriteHandler} />
               )}
-        </div>
+        </div>}
         <div className="col col-sm-6 p-5">
-          zvaigzdutes
+          { isLoggedIn && <Stars bookId={bookId} userId={userId}/>}
         </div>
       </div>
-      <Comments book={book} bookId={bookId} />
+      {isLoggedIn && <Comments book={book} bookId={bookId} />}
     </>
   );
 }

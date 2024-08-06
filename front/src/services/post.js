@@ -88,3 +88,19 @@ export const commentPost = async (userId, bookId, data) => {
     throw new Error(`Failed to save data ${error.message}`);
   }
 };
+
+export const starsPost = async (userId, bookId, data) => {
+  try {
+    const userToken = getDefaultToken();
+    const response = await axios.post(`${API_URL}/api/users/${userId}/books/${bookId}/stars`, data,
+    {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error(`Failed to save data ${error.message}`);
+  }
+};
+

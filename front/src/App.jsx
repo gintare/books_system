@@ -31,7 +31,7 @@ function App() {
 
           <UserProvider>
             <Routes>
-              <Route path="/" element={<Navigate to="/register" />} />
+              <Route path="/" element={<Navigate to="/books" />} />
               <Route path="/register" element={<RegisterPage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/books" element={<BooksPage />} />

@@ -50,4 +50,10 @@ public class GlobalExceptionHandler {
         ErrorDetails errorDetails = new ErrorDetails(ex.getMessage());
         return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(StarsNotFoundException.class)
+    public ResponseEntity<ErrorDetails> exceptionStarsNotFoundHandler(StarsNotFoundException ex) {
+        ErrorDetails errorDetails = new ErrorDetails(ex.getMessage());
+        return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
+    }
 }

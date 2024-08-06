@@ -23,12 +23,7 @@ export const getOne = async (id) => {
 export const getAllCategories = async () => {
   try {
     const userToken = getDefaultToken();
-    const resp = await axios.get(`${API_URL}/api/categories`,
-    {
-      headers: {
-        Authorization: `Bearer ${userToken}`,
-      },
-    });
+    const resp = await axios.get(`${API_URL}/api/categories`);
     return resp.data;
   } catch (error) {
     throw new Error(`Error fetching all data: ${error.message}`);
@@ -38,12 +33,8 @@ export const getAllCategories = async () => {
 export const getAllBooks = async () => {
   try {
     const userToken = getDefaultToken();
-    const resp = await axios.get(`${API_URL}/api/books`,
-    {
-      headers: {
-        Authorization: `Bearer ${userToken}`,
-      },
-    });
+    const resp = await axios.get(`${API_URL}/api/books`);
+    
     return resp.data;
   } catch (error) {
     throw new Error(`Error fetching all data: ${error.message}`);
@@ -53,12 +44,7 @@ export const getAllBooks = async () => {
 export const getOneBook = async (id) => {
   try {
     const userToken = getDefaultToken();
-    const resp = await axios.get(`${API_URL}/api/books/${id}`,
-    {
-      headers: {
-        Authorization: `Bearer ${userToken}`,
-      },
-    });
+    const resp = await axios.get(`${API_URL}/api/books/${id}`);
     return resp.data;
   } catch (error) {
     throw new Error(`Error fetching all data: ${error.message}`);
@@ -68,12 +54,7 @@ export const getOneBook = async (id) => {
 export const getBooksByCategories = async (category_id) => {
   try {
     const userToken = getDefaultToken();
-    const resp = await axios.get(`${API_URL}/api/categories/${category_id}/books`,
-    {
-      headers: {
-        Authorization: `Bearer ${userToken}`,
-      },
-    });
+    const resp = await axios.get(`${API_URL}/api/categories/${category_id}/books`);
     return resp.data;
   } catch (error) {
     throw new Error(`Error fetching all data: ${error.message}`);
@@ -112,6 +93,20 @@ export const getCommentsByBook = async (bookId) => {
   try {
     const userToken = getDefaultToken();
     const resp = await axios.get(`${API_URL}/api/books/${bookId}/comments`, {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    });
+    return resp.data;
+  } catch (error) {
+    throw new Error(`Error getIsFavorite : ${error.message}`);
+  }
+};
+
+export const getOneStars = async (userId, bookId) => {
+  try {
+    const userToken = getDefaultToken();
+    const resp = await axios.get(`${API_URL}/api/users/${userId}/books/${bookId}/stars`, {
       headers: {
         Authorization: `Bearer ${userToken}`,
       },

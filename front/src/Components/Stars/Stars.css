@@ -1,0 +1,7 @@
+.stars-content i {
+    font-size: 2rem;
+}
+
+.stars-content .star-fill {
+    display:none;
+}
