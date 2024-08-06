@@ -55,3 +55,18 @@ export const deleteFavorite = async (userId, bookId) => {
     throw new Error(`Error deleting data ${error.message}`);
   }
 };
+
+export const deleteComment = async (commentId) => {
+  try {
+    const userToken = getDefaultToken();
+    const resp = await axios.delete(`${API_URL}/api/comments/${commentId}`,
+    {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    });
+    return resp.data;
+  } catch (error) {
+    throw new Error(`Error deleting data ${error.message}`);
+  }
+};

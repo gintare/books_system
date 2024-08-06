@@ -5,10 +5,12 @@ import { useContext, useEffect, useState } from "react";
 import UserContext from "../../Context/UserContext/UserContext";
 import { commentPost } from "../../services/post";
 import { getCommentsByBook } from "../../services/get";
+import { deleteComment } from "../../services/delete";
 
-function Comments({book}) {
+function Comments({book, bookId}) {
   const {id: userId} = useContext(UserContext);
   const [comments, setComments] = useState([]);
+  const [update, setUpdate] = useState(0);
 
   const {
     register,
@@ -32,17 +34,33 @@ function Comments({book}) {
       }
       reset();
       toast.success("Your comment successfuly saved")
+      setUpdate((prev) => prev + 1);
     }catch(error) {
       console.error(error.message);
       toast.error(error.message);
     }
   };
 
+  const deleteCommentOnClickHandler = async (commentId) => {
+    //console.log("commentId = "+commentId);
+    try{
+      const co = await deleteComment(commentId);
+      if(!co){
+        throw new Error("No comment deleted");
+      }
+      toast.success("Comment successfuly deleted")
+      setUpdate((prev) => prev + 1);
+    }catch(error){
+      console.error(error.message);
+      toast.error(error.message);
+    }
+  }
+
   useEffect(() => {
     const getData = async () => {
       try{
         // console.log(book.id);
-        const com = await getCommentsByBook(book.id);
+        const com = await getCommentsByBook(bookId);
         if(!com){
           throw new Error("No comments where found");
         }
@@ -53,7 +71,7 @@ function Comments({book}) {
       }
     };
     getData();
-  }, []);
+  }, [update]);
 
   return (
     <>
@@ -80,6 +98,13 @@ function Comments({book}) {
         </form>
       </div>
       <div>
+        {comments.map((comment, index) => {
+          return <div key={index} className="comment-list-content m-3">{comment.text}
+          {comment.userId == userId && <button onClick={() => {deleteCommentOnClickHandler(comment.id)}}>Delete 🗑️</button>}
+          </div>
+        })}
+      </div>
+      <div className="comments-footer">
 
       </div>
     </>

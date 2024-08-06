@@ -32,8 +32,6 @@ function BookDetalesPage() {
     }
   }
 
-
-
   useEffect(() => {
     const getBook = async () => {
         try{
@@ -93,7 +91,7 @@ function BookDetalesPage() {
           zvaigzdutes
         </div>
       </div>
-      <Comments book={book} />
+      <Comments book={book} bookId={bookId} />
     </>
   );
 }

@@ -1,3 +1,11 @@
 .comment-form-content textarea {
     max-width: 500px;
 }
+
+.comments-footer{
+    margin: 13rem;
+}
+
+.comment-list-content button {
+    margin: 1rem;
+}

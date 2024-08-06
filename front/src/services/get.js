@@ -110,7 +110,6 @@ export const getFavoritesByUser = async (userId) => {
 
 export const getCommentsByBook = async (bookId) => {
   try {
-    console.log(bookId);
     const userToken = getDefaultToken();
     const resp = await axios.get(`${API_URL}/api/books/${bookId}/comments`, {
       headers: {
