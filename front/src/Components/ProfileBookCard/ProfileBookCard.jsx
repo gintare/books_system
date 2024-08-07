@@ -5,6 +5,7 @@ import Card from "react-bootstrap/Card";
 import { Modal } from "react-bootstrap";
 import { deleteBook } from "../../services/delete";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 function ProfileBookCard({ book, setUpdate, setUpdateBook }) {
   const [show, setShow] = useState(false);
@@ -40,7 +41,7 @@ function ProfileBookCard({ book, setUpdate, setUpdateBook }) {
   return (
     <>
       <Card className="profile-book-card">
-        <Card.Img variant="top" src={book.image} />
+        <Link to={`/book/${book.id}`}><Card.Img variant="top" src={book.image} /></Link>
         <Card.Body>
           <Card.Title>{book.name}</Card.Title>
           <Button variant="primary" onClick={() => handleShow(book.id)}>Delete</Button>

@@ -1,6 +1,7 @@
 package lt.techin.gintare.back.service;
 
 import lombok.AllArgsConstructor;
+import lt.techin.gintare.back.dto.BookPageResponseDTO;
 import lt.techin.gintare.back.dto.BookRequestDTO;
 import lt.techin.gintare.back.dto.BookResponseDTO;
 import lt.techin.gintare.back.dto.CategoryResponseDTO;
@@ -10,6 +11,10 @@ import lt.techin.gintare.back.model.Book;
 import lt.techin.gintare.back.model.Category;
 import lt.techin.gintare.back.repository.BookRepository;
 import lt.techin.gintare.back.repository.CategoryRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -41,15 +46,22 @@ public class BookService {
         return getBookResponseDTO(book);
     }
 
-    public List<BookResponseDTO> getAllBooks() {
-        List<Book> books = bookRepository.findAll();
+    public BookPageResponseDTO getAllBooks(Integer page) {
+        Pageable firstPageWithTwoElements = PageRequest.of(page, 8, Sort.by("name"));
+        Page<Book> booksPage = bookRepository.findAll(firstPageWithTwoElements);
+        List<Book> books = booksPage.toList();
+        BookPageResponseDTO bookPageResponseDTO = new BookPageResponseDTO();
+        bookPageResponseDTO.setTotalRecords(booksPage.getTotalElements());
+        bookPageResponseDTO.setCountPerPage(booksPage.getNumberOfElements());
+        bookPageResponseDTO.setPage(booksPage.getNumber());
+        bookPageResponseDTO.setTotalPages(booksPage.getTotalPages());
         List<BookResponseDTO> bookResponseDTOS = new ArrayList<>();
         for(Book book : books) {
             BookResponseDTO bookResponseDTO = getBookResponseDTO(book);
             bookResponseDTOS.add(bookResponseDTO);
         }
-
-        return bookResponseDTOS;
+        bookPageResponseDTO.setBooks(bookResponseDTOS);
+        return bookPageResponseDTO;
     }
 
     private BookResponseDTO getBookResponseDTO(Book book) {

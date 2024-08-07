@@ -9,22 +9,29 @@ function AddbookPage () {
     const[books, setBooks] = useState([]);
     const[update, setUpdate] = useState(0);
     const[updateBook, setUpdateBook] = useState("");
+    const[ page, setPage] = useState(0);
+    const [totalPages, setTotalPages] = useState(1);
+
+    const handlePageClick = (pageNumber) => {
+      setPage(pageNumber);
+    };
 
     useEffect(() => {
        const getBooks = async () => {
          try{
-          const bo = await getAllBooks();
-          setBooks(bo);
+          const bo = await getAllBooks(page);
+          setBooks(bo.books);
+          setTotalPages(bo.totalPages);
          }catch(error){
            toast.error(error.message);
          }
        };
        getBooks();
-    }, [update]);
+    }, [update, page]);
 
     return(<>
     <div className="addbook-page-buttons">
-       <button type="button" class="btn btn-primary" onClick={() => {
+       <button type="button" className="btn btn-primary" onClick={() => {
         setUpdateBook("");
         setUpdate((prev) => prev + 1);
        }}>Add new book</button>
@@ -38,6 +45,17 @@ function AddbookPage () {
           return <ProfileBookCard key={index} book={book} setUpdate={setUpdate} setUpdateBook={setUpdateBook}/>
         })}
     </div>
+    <div className="pagination-content m-3">
+        <ul className="pagination pagination-ul">
+          {Array.from({ length: totalPages }, (_, index) => (
+            <li key={index} className={`page-item ${page === index ? 'active' : ''}`}>
+              <button className="page-link" onClick={() => handlePageClick(index)}>
+                {index + 1}
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div>
     <div className='book-page-footer'>
 
     </div>

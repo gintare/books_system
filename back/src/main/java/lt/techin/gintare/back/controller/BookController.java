@@ -1,6 +1,7 @@
 package lt.techin.gintare.back.controller;
 
 import lombok.AllArgsConstructor;
+import lt.techin.gintare.back.dto.BookPageResponseDTO;
 import lt.techin.gintare.back.dto.BookRequestDTO;
 import lt.techin.gintare.back.dto.BookResponseDTO;
 import lt.techin.gintare.back.service.BookService;
@@ -28,8 +29,8 @@ public class BookController {
     }
 
     @GetMapping("/api/books")
-    public List<BookResponseDTO> getAllBooks(){
-        return bookService.getAllBooks();
+    public BookPageResponseDTO getAllBooks(@RequestParam Integer page){
+        return bookService.getAllBooks(page);
     }
 
     @PutMapping("/api/categories/{categoryId}/books/{id}")

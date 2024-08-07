@@ -30,10 +30,10 @@ export const getAllCategories = async () => {
   }
 };
 
-export const getAllBooks = async () => {
+export const getAllBooks = async (page) => {
   try {
     const userToken = getDefaultToken();
-    const resp = await axios.get(`${API_URL}/api/books`);
+    const resp = await axios.get(`${API_URL}/api/books?page=${page}`);
     
     return resp.data;
   } catch (error) {

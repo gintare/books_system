@@ -12,6 +12,16 @@
     margin: 13rem;
   }
 
+  .pagination-ul {
+    justify-content: center !important;
+    display: flex;
+    
+  }
+
+  .active {
+    z-index: -1;
+  }
+
   @media (max-width: 992px) {
     .book-list {
       grid-template-columns: repeat(2, 15.625rem);
