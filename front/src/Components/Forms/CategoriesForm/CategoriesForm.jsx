@@ -23,7 +23,7 @@ function CategoriesForm() {
 
     const formSubmitHandler = async (data) => {
         const checkTitle = (categor) => {
-           return categor.title == data.title;
+           return categor.title.toLowerCase() == data.title.toLowerCase();
         };
         const isSome = categories.some(checkTitle);
         console.log("isSome = "+isSome);

@@ -18,6 +18,7 @@ const Navigation = () => {
   const { books, setBooks, setFilteredBooks, update, setUpdate } =
     useContext(BooksContext);
   const { categories, setCategories } = useContext(CategoriesContext);
+  //const contextData = useContext(CategoriesContext);
 
   //console.log(contextData, "boooooo");
 
@@ -58,17 +59,26 @@ const Navigation = () => {
   };
 
   useEffect(() => {
-    const filter = books.filter((book) => {
-      return book.name.toLowerCase().includes(searchText.toLowerCase());
-    });
-
-    setFilteredBooks(filter);
-    //setBooks(filter);
-    setUpdate((prev) => prev + 1);
+    //console.log("useEffect***********");
+    if(books){
+      const filter = books.filter((book) => {
+        return book.name.toLowerCase().includes(searchText.toLowerCase());
+      });
+  
+      setFilteredBooks(filter);
+      //setBooks(filter);
+      setUpdate((prev) => prev + 1);
+    }
+    
 
     const getCategories = async () => {
       try {
         const cat = await getAllCategories();
+        //console.log("cat"+cat);
+        if(!cat){
+          throw new Error("No categories found");
+        }
+        
         setCategories(cat);
       } catch (error) {
         toast.error(error.message);
@@ -144,10 +154,10 @@ const Navigation = () => {
             <select
               onChange={onCategorySelectChangeHandler}
               className="form-select categories-select"
-              aria-label="Select recipe category"
+              aria-label="Select boook category"
             >
-              <option value="0">Select recipe category</option>
-              {categories.map((category) => (
+              <option value="0">Select book category</option>
+              {categories.map && categories.map((category) => (
                 <option key={category.id} value={category.id}>
                   {category.title}
                 </option>

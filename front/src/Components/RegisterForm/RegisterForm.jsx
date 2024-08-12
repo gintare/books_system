@@ -9,7 +9,9 @@ import TextField from '@mui/material/TextField';
 
 const RegisterForm = () => {
   const [error, setError] = useState('');
-  const { setUpdate } = useContext(UserContext);
+  //const { setUpdate } = useContext(UserContext);
+  const { updateUser} = useContext(UserContext);
+  //console.log(userUseContext, "nnnnnnnnn");
 
   const {
     register,
@@ -35,7 +37,8 @@ const RegisterForm = () => {
       const dataCopy = { ...data };
       delete dataCopy['repeatPassword'];
       await postRegister(dataCopy);
-      setUpdate((updates) => updates + 1);
+      //setUpdate((updates) => updates + 1);
+      updateUser();
       reset();
       toast.success('User created successfully!');
       navigate('/login');

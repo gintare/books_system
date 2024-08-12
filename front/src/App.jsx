@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Header from "./Components/Header/Header";
@@ -15,21 +15,20 @@ import AdminPage from "./pages/AdminPage/AdminPage";
 import BooksPage from "./pages/BooksPage/BooksPage";
 import BookDetalesPage from "./pages/BookDetalesPage/BookDetalesPage";
 import { BooksProvider } from "./Context/BooksContext/BooksContext";
-import { UserProvider } from "./Context/UserContext/UserContext";
+import UserContext, { UserProvider } from "./Context/UserContext/UserContext";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 
 function App() {
   const [user, setUser] = useState({});
   const [update, setUpdate] = useState(0);
+  const { isLoggedIn } = useContext(UserContext);
 
   return (
     <>
       <ToastContainer autoClose={5000} position="top-center" />
       <BooksProvider>
         <CategoriesProvider>
-          <Header />
-
-          <UserProvider>
+            <Header />
             <Routes>
               <Route path="/" element={<Navigate to="/books" />} />
               <Route path="/register" element={<RegisterPage />} />
@@ -62,7 +61,6 @@ function App() {
               <Route path="/profile" element={<ProfilePage />} />
               <Route path="/book/:id" element={<BookDetalesPage />} />
             </Routes>
-          </UserProvider>
         </CategoriesProvider>
       </BooksProvider>
       <Footer />
