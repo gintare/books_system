@@ -7,8 +7,8 @@ import { commentPost } from "../../services/post";
 import { getCommentsByBook } from "../../services/get";
 import { deleteComment } from "../../services/delete";
 
-function Comments({book, bookId}) {
-  const {id: userId} = useContext(UserContext);
+function Comments({ book, bookId }) {
+  const { id: userId } = useContext(UserContext);
   const [comments, setComments] = useState([]);
   const [update, setUpdate] = useState(0);
 
@@ -27,15 +27,15 @@ function Comments({book, bookId}) {
   });
 
   const onCommentsSubmitClickHandler = async (data) => {
-    try{
+    try {
       const bo = await commentPost(userId, book.id, data);
-      if(!bo){
+      if (!bo) {
         throw new Error("No comments was saved");
       }
       reset();
-      toast.success("Your comment successfuly saved")
+      toast.success("Your comment successfuly saved");
       setUpdate((prev) => prev + 1);
-    }catch(error) {
+    } catch (error) {
       console.error(error.message);
       toast.error(error.message);
     }
@@ -43,29 +43,29 @@ function Comments({book, bookId}) {
 
   const deleteCommentOnClickHandler = async (commentId) => {
     //console.log("commentId = "+commentId);
-    try{
+    try {
       const co = await deleteComment(commentId);
-      if(!co){
+      if (!co) {
         throw new Error("No comment deleted");
       }
-      toast.success("Comment successfuly deleted")
+      toast.success("Comment successfuly deleted");
       setUpdate((prev) => prev + 1);
-    }catch(error){
+    } catch (error) {
       console.error(error.message);
       toast.error(error.message);
     }
-  }
+  };
 
   useEffect(() => {
     const getData = async () => {
-      try{
+      try {
         // console.log(book.id);
         const com = await getCommentsByBook(bookId);
-        if(!com){
+        if (!com) {
           throw new Error("No comments where found");
         }
         setComments(com);
-      }catch(error){
+      } catch (error) {
         console.error(error.message);
         toast.error(error.message);
       }
@@ -97,16 +97,32 @@ function Comments({book, bookId}) {
           </div>
         </form>
       </div>
-      <div>
+      <div className="comment-list-content-1 container">
+        {comments.length > 0 && <div className="row">
+          <div className="col-sm m-3"><h6>Comments</h6></div>
+        </div>}
         {comments.map((comment, index) => {
-          return <div key={index} className="comment-list-content m-3">{comment.text}
-          {comment.userId == userId && <button onClick={() => {deleteCommentOnClickHandler(comment.id)}}>Delete 🗑️</button>}
-          </div>
+          return (
+            <div key={index} className="row">
+              <div className="col-sm m-1">
+              {comment.text}
+              </div>
+              <div className="col-auto m-1">
+              {comment.userId == userId && (
+                <button
+                  onClick={() => {
+                    deleteCommentOnClickHandler(comment.id);
+                  }}
+                >
+                  Delete 🗑️
+                </button>
+              )}
+              </div>
+            </div>
+          );
         })}
       </div>
-      <div className="comments-footer">
-
-      </div>
+      <div className="comments-footer"></div>
     </>
   );
 }

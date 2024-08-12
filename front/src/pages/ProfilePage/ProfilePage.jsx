@@ -8,7 +8,7 @@ import BookCard from "../../Components/BookCard/BookCard";
 function ProfilePage() {
   const [favoriteBooks, setFavoriteBooks] = useState([]);
   const { id: userId } = useContext(UserContext);
-  console.log("userId = " + userId);
+  // console.log("userId = " + userId);
 
   useEffect(() => {
     const getData = async () => {

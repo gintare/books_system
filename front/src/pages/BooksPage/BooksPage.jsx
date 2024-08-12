@@ -19,7 +19,9 @@ function BooksPage() {
   useEffect(() => {
     const getBooks = async () => {
       try {
+        console.log("page = "+page);
         const bo = await getAllBooks(page);
+        console.log(bo.books);
         setBooks(bo.books);
         setTotalPages(bo.totalPages);
       } catch (error) {
@@ -28,17 +30,23 @@ function BooksPage() {
       }
     };
     getBooks();
-  }, [page]);
+  }, [page, setUpdate]);
 
   return (
     <>
       <h1>Books page</h1>
       <div className="book-list">
-        {fiteredBooks.map((book, index) => {
+        {fiteredBooks.map && fiteredBooks.map((book, index) => {
           return <BookCard key={index} book={book} />;
         })}
-        
       </div>
+      <div className="book-list">
+        {fiteredBooks.length == 0 && books.map((book, index) => {
+          return <BookCard key={index} book={book} />;
+        })}
+      </div>
+
+      { fiteredBooks.length == 0 &&
       <div className="pagination-content m-3">
         <ul className="pagination pagination-ul">
           {Array.from({ length: totalPages }, (_, index) => (
@@ -50,6 +58,7 @@ function BooksPage() {
           ))}
         </ul>
       </div>
+      }
 
       <div className="books-page-footer"></div>
     </>

@@ -9,3 +9,7 @@
 .comment-list-content button {
     margin: 1rem;
 }
+
+.comment-list-content-1 .row {
+    border: 1px solid gray;
+}

@@ -43,15 +43,18 @@ const Navigation = () => {
       let bo = null;
       if (e.target.value !== "0") {
         bo = await getBooksByCategories(e.target.value);
+        setFilteredBooks(bo);
       } else {
-        bo = await getAllBooks();
+        bo = await getAllBooks(0);
+        setFilteredBooks([]);
+        setBooks(bo.books);
       }
       if (!bo) {
         throw new Error("Operation no success");
       }
 
       //setBooks(bo);
-      setFilteredBooks(bo);
+      // setFilteredBooks(bo);
     } catch (error) {
       toast.error(error.message);
       console.error(error.message);
@@ -60,13 +63,19 @@ const Navigation = () => {
 
   useEffect(() => {
     //console.log("useEffect***********");
-    if(books){
+    if(books && searchText != ''){
+      console.log("searchText = "+searchText);
       const filter = books.filter((book) => {
         return book.name.toLowerCase().includes(searchText.toLowerCase());
       });
   
       setFilteredBooks(filter);
       //setBooks(filter);
+      setUpdate((prev) => prev + 1);
+    } else{
+      //setBooks(books);
+      //const bo = await getAllBooks(0);
+      setFilteredBooks([]);
       setUpdate((prev) => prev + 1);
     }
     
@@ -89,43 +98,6 @@ const Navigation = () => {
   }, [searchText, books]);
 
   return (
-    //     <nav className="navbar navbar-expand-lg bg-body-tertiary">
-    //   <div className="container-fluid">
-    //     <a className="navbar-brand" href="#">Navbar</a>
-    //     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    //       <span className="navbar-toggler-icon"></span>
-    //     </button>
-    //     <div className="collapse navbar-collapse" id="navbarSupportedContent">
-    //       <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-    //         <li className="nav-item">
-    //           <a className="nav-link active" aria-current="page" href="#">Home</a>
-    //         </li>
-    //         <li className="nav-item">
-    //           <a className="nav-link" href="#">Link</a>
-    //         </li>
-    //         <li className="nav-item dropdown">
-    //           <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    //             Dropdown
-    //           </a>
-    //           <ul className="dropdown-menu">
-    //             <li><a className="dropdown-item" href="#">Action</a></li>
-    //             <li><a className="dropdown-item" href="#">Another action</a></li>
-    //             <li><hr className="dropdown-divider"/></li>
-    //             <li><a className="dropdown-item" href="#">Something else here</a></li>
-    //           </ul>
-    //         </li>
-    //         <li className="nav-item">
-    //           <a className="nav-link disabled" aria-disabled="true">Disabled</a>
-    //         </li>
-    //       </ul>
-    //       <form className="d-flex" role="search">
-    //         <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-    //         <button className="btn btn-outline-success" type="submit">Search</button>
-    //       </form>
-    //     </div>
-    //   </div>
-    // </nav>
-
     <nav className="navbar navbar-expand-lg">
       <div className="container-fluid">
         <button

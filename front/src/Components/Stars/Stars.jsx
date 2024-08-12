@@ -46,7 +46,7 @@ function Stars({ bookId, userId }) {
     const getData = async () => {
       try {
         const st = await getOneStars(userId, bookId);
-        console.log(st);
+        //console.log(st);
         if(st.id){
           setStarsId(st.id);
           fillStars(st.starsCount, true);
